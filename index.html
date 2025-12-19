@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="프로젝트 설명 넣어주기">
+    <title>심해의 공포</title>
+    <meta property="og:title" content="심해의 공포" />
+<meta property="og:description" content="심해의 공포라는 제목으로 깊은 바다의 신비롭고 무서운 세계를 설명합니다. 바다는 우리가 아는 것보다 훨씬 넓고, 빛이 사라지고 압력이 극도로 높아지는 곳으로서 인간의 이해를 넘어선 공간임을 보여 줍니다. 사이트는 깊이에 따라 바다의 여러 구역(표층, 여명대, 암흑대, 심연대, 해구)과 그곳에 사는 기괴한 생물들(앙골라피쉬, 고블린 샤크, 대왕오징어 등)을 소개합니다. 그리고 인간이 바다를 두려워하는 이유는 “알 수 없기 때문에”이며, 심해는 생명과 공포가 동시에 존재하는 곳이라고 설명합니다." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://sushinmen.github.io/finalgng/" />
+<meta property="og:image" content="https://sushinmen.github.io/finalgng/thumbnail.mp4" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap');
+        * {
+            margin: 0;              
+            padding: 0;             
+        }
+        html {
+            scroll-behavior: smooth;              
+        }
+
+        body {
+            font-family: 'Noto Serif KR', serif;  
+            background: #000;                     
+            color: #fff;                         
+            overflow-x: hidden;                  
+            line-height: 1.8;                     
+        }
+        nav {
+            position: fixed;                      
+            top: 0;                              
+            width: 100%;                          
+            padding: 20px 50px;                   
+            z-index: 1000;                        
+            background: rgba(0, 0, 0, 0.3);      
+            backdrop-filter: blur(10px);          
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        nav ul {
+            list-style: none;                     
+            display: flex;                       
+            justify-content: center;              
+            gap: 50px;                            
+        }
+
+        nav a {
+            color: #00d4ff;                      
+            text-decoration: none;                
+            font-size: 16px;                      
+            font-weight: 300;                     
+            letter-spacing: 1px;                 
+        }
+
+        nav a:hover {
+            color: #fff;                          
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8); 
+        }
+
+        .hero {
+            height: 100vh;                        
+            display: flex;                        
+            align-items: center;                  
+            justify-content: center;              
+            position: relative;                   
+            background: linear-gradient(180deg, #000428 0%, #001f3f 50%, #000000 100%); }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.pinimg.com/originals/cc/da/ff/ccdaffca5638eee47f6007e519cff31e.gif') center/cover;
+            opacity: 0.3;                        
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;                   
+            z-index: 2;                           
+            max-width: 900px;                     
+            padding: 0 30px;                      
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif; 
+            font-size: 5rem;                      
+            font-weight: 400;                     
+            margin-bottom: 30px;                  
+            letter-spacing: 15px;                 
+            color: #00d4ff;                       
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5); 
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;                    
+            font-weight: 300;                     
+            color: rgba(255, 255, 255, 0.7);     
+            letter-spacing: 3px;                  
+            line-height: 2;                       
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;                         
+            left: 50%;                            
+            transform: translateX(-50%);          
+            color: #00d4ff;
+            font-size: 1.5rem;
+        }
+
+        section {
+            min-height: 100vh;                    
+            padding: 120px 50px;                  
+            display: flex;                        
+            align-items: center;                 
+            justify-content: center;              
+        }
+
+        .section-content {
+            max-width: 1000px;                    
+            width: 100%;                          
+        }
+
+        .intro {
+            background: linear-gradient(180deg, #000 0%, #000428 100%); 
+            position: relative;
+        }
+
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background: url('https://cdn.cosmos.so/18906232-953d-4c38-a478-c1cd17530a3c?format=jpeg') center/cover;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .intro .section-content {
+            position: relative;
+            z-index: 1;                           
+        }
+
+        .intro-text {
+            font-size: 1.4rem;
+            line-height: 2.5;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .intro-text p {
+            margin-bottom: 30px;
+        }
+
+        /* 강조 텍스트 */
+        .intro-text .highlight {
+            color: #00d4ff;
+            font-weight: 400;
+        }
+
+        .meaning {
+            background: linear-gradient(180deg, #000428 0%, #001f3f 100%);
+            position: relative;
+        }
+
+        .meaning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.pexels.com/photos/932638/pexels-photo-932638.jpeg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .meaning .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .meaning-content {
+            text-align: center;
+        }
+
+        .meaning-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 0 auto 40px;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .meaning-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .meaning-quote {
+            font-size: 1.5rem;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            margin-bottom: 40px;
+            font-style: italic;                   
+        }
+
+        .meaning-quote .question {
+            color: #00d4ff;
+            font-size: 1.8rem;
+            display: block;
+            margin-top: 30px;
+            font-weight: 400;
+        }
+
+        .sound {
+            background: linear-gradient(180deg, #001f3f 0%, #000428 50%, #000 100%);
+            position: relative;
+        }
+
+        .sound::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.cosmos.so/0ada9b03-1976-4985-abe3-a1eda176896a?format=jpeg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .sound .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sound-content {
+            text-align: center;
+        }
+
+        .sound-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .sound-text {
+            font-size: 1.3rem;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .depth-zones {
+            background: #000;
+        }
+
+        .depth-zones-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 80px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .zone {
+            margin-bottom: 100px;                 
+            padding: 40px;
+            border-left: 3px solid rgba(0, 212, 255, 0.3); 
+            background: rgba(0, 0, 0, 0.3);       
+            border-radius: 10px;                  
+        }
+
+        .zone:hover {
+            border-left-color: #00d4ff;           
+            background: rgba(0, 212, 255, 0.05);  
+        }
+
+        .zone-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            object-fit: cover;                    
+            border-radius: 10px;
+            margin-bottom: 30px;
+            opacity: 0.7;                         
+        }
+
+        .zone:hover .zone-image {
+            opacity: 0.9;                         
+        }
+
+        .zone-depth {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #00d4ff;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .zone-name {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .zone-description {
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        .zone-description .highlight {
+            color: #00d4ff;
+            font-weight: 400;
+        }
+
+        .creatures {
+            background: linear-gradient(180deg, #000 0%, #000428 100%);
+        }
+
+        .creatures-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 60px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .creature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px;                            
+        }
+
+        .creature-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .creature-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(0, 212, 255, 0.1);   
+        }
+
+        .creature-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .creature-card:hover .creature-image {
+            opacity: 0.8;
+        }
+
+        .creature-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .creature-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        .fear {
+            background: linear-gradient(180deg, #000428 0%, #001f3f 100%);
+            position: relative;
+        }
+
+        .fear::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.pinimg.com/736x/c2/4f/a8/c24fa8cb9fc5bfd6150e9dd02d81e905.jpg') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .fear .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fear-content {
+            text-align: center;
+        }
+
+        .fear-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .fear-text {
+            font-size: 1.3rem;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fear-text .highlight {
+            color: #00d4ff;
+            font-weight: 400;
+        }
+
+        .essence {
+            background: linear-gradient(180deg, #001f3f 0%, #000 100%);
+            position: relative;
+        }
+
+        .essence::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.pinimg.com/1200x/e8/76/94/e876947d2581eb759773858427f754b7.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .essence .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .essence-content {
+            text-align: center;
+        }
+
+        .essence-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .essence-text {
+            font-size: 1.3rem;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .essence-text .highlight {
+            color: #00d4ff;
+            font-weight: 400;
+        }
+
+        .essence-final {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-top: 50px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        footer {
+            background: #000;
+            padding: 60px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease-out;      
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;                       
+                transform: translateY(30px);      
+            }
+            to {
+                opacity: 1;                       
+                transform: translateY(0);         
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .intro-text,
+            .meaning-quote,
+            .sound-text,
+            .fear-text,
+            .essence-text {
+                font-size: 1.1rem;
+            }
+
+            .zone-depth {
+                font-size: 2rem;
+            }
+
+            .zone-image {
+                height: 200px;
+            }
+
+            .creature-image {
+                height: 150px;
+            }
+
+            .creature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <ul>
+            <li><a href="#hero">시작</a></li>
+            <li><a href="#intro">깊이</a></li>
+            <li><a href="#meaning">의미</a></li>
+            <li><a href="#sound">소리</a></li>
+            <li><a href="#zones">수심</a></li>
+            <li><a href="#creatures">생물</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>심해의 공포</h1>
+            <div class="hero-subtitle">
+                깊이 들어갈수록<br>
+                우리가 알고 있다고 믿는 바다는,<br>
+                실제 바다의 단 5%에 불과하다.
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <section class="intro fade-in" id="intro">
+        <div class="section-content">
+            <div class="intro-text">
+                <p>바다는 인류가 정복하지 못한 마지막 미지의 영역이다.</p>
+                <p>빛이 사라지고, 압력이 모든 것을 짓눌러 형태를 바꾸는 세계.</p>
+                <p class="highlight">그곳은 인간의 이해를 넘어선, 숨겨진 진실의 공간이다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="meaning fade-in" id="meaning">
+        <div class="section-content">
+            <div class="meaning-content">
+                <h2 class="meaning-title">바다가 인간에게 주는 의미</h2>
+                <img src="https://cdn.cosmos.so/0ada9b03-1976-4985-abe3-a1eda176896a?format=jpeg" alt="Deep ocean" class="meaning-image">
+                <div class="meaning-quote">
+                    바다는 생명의 시작이자, 인간이 돌아갈 수 없는 곳이다.<br><br>
+                    그 깊은 아래에는 우리가 절대 마주할 수 없는<br>
+                    공포와 아름다움이 공존한다.<br><br>
+                    바다는 우리에게 묻는다.
+                    <span class="question">"너는 얼마나 알고 있다고 믿는가?"</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sound fade-in" id="sound">
+        <div class="section-content">
+            <div class="sound-content">
+                <h2 class="sound-title">빛 없는 세계에서의 소리</h2>
+                <div class="sound-text">
+                    심해는 놀랍게도 '거대한 스피커'처럼 작동합니다.<br><br>
+                    물은 공기보다 소리를 4~5배 빠르게 전달하기 때문에,<br>
+                    아주 멀리 있는 소리도 크게 울립니다.<br><br>
+                    하지만 소리의 출처는 보이지 않습니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="depth-zones fade-in" id="zones">
+        <div class="section-content">
+            <h2 class="depth-zones-title">수심에 따라 바다의 모습은 완전히 달라진다</h2>
+            
+            <div class="zone">
+                <img src="https://images.pexels.com/photos/10845800/pexels-photo-10845800.jpeg" alt="Surface zone" class="zone-image">
+                <div class="zone-depth">0m</div>
+                <div class="zone-name">표층 — 태양광이 닿는 구역</div>
+                <div class="zone-description">
+                    익숙하고 평온한, 우리가 살아가는 바다.
+                </div>
+            </div>
+
+            <div class="zone">
+                <img src="https://images.pexels.com/photos/4761513/pexels-photo-4761513.jpeg" alt="Twilight zone" class="zone-image">
+                <div class="zone-depth">200m</div>
+                <div class="zone-name">여명대 (Twilight Zone)</div>
+                <div class="zone-description">
+                    빛이 희미하게 사라지기 시작하는 곳. <span class="highlight">실루엣만 남는다.</span>
+                </div>
+            </div>
+
+            <div class="zone">
+                <img src="https://images.pexels.com/photos/2803247/pexels-photo-2803247.jpeg" alt="Midnight zone" class="zone-image">
+                <div class="zone-depth">1000m</div>
+                <div class="zone-name">암흑대 (Midnight Zone)</div>
+                <div class="zone-description">
+                    완전한 어둠, 시각은 의미를 잃는다.<br>
+                    생물들은 스스로 빛을 만들어 생존한다.<br>
+                    <span class="highlight">그 빛은 유혹이고, 경고이며, 함정이다.</span>
+                </div>
+            </div>
+
+            <div class="zone">
+                <img src="https://i.pinimg.com/1200x/1e/dc/59/1edc59c85682980be6749900f6f90ce1.jpg" alt="Abyss zone" class="zone-image">
+                <div class="zone-depth">4000m</div>
+                <div class="zone-name">심연대 (Abyss)</div>
+                <div class="zone-description">
+                    <span class="highlight">압력은 인간을 단숨에 파괴한다.</span><br>
+                    생명체들은 기괴한 모습으로 변화한다.
+                </div>
+            </div>
+
+            <div class="zone">
+                <img src="https://i.pinimg.com/originals/67/c7/6b/67c76bd6449e15611d8379d476c859cb.gif" alt="Hadal zone" class="zone-image">
+                <div class="zone-depth">11000m</div>
+                <div class="zone-name">해구 (Hadal Zone)</div>
+                <div class="zone-description">
+                    지구의 가장 깊은 공간. <span class="highlight">여전히 미지의 영역.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="creatures fade-in" id="creatures">
+        <div class="section-content">
+            <h2 class="creatures-title">심해 생물의 진짜 공포</h2>
+            <div class="creature-grid">
+                <div class="creature-card">
+                    <img src="https://cdn.cosmos.so/a2978980-067e-4cb6-ba40-52416deaf3f1?format=jpeg" alt="Anglerfish" class="creature-image">
+                    <div class="creature-name">앙골라피쉬</div>
+                    <div class="creature-description">빛으로 먹이를 유혹하는 포식자</div>
+                </div>
+                <div class="creature-card">
+                    <img src="https://i.pinimg.com/736x/7e/36/42/7e36421c5d45dd185c48b90045700af8.jpg" alt="Goblin shark" class="creature-image">
+                    <div class="creature-name">고블린 상어</div>
+                    <div class="creature-description">턱이 튀어나와 눈앞의 먹이를 낚아챈다</div>
+                </div>
+                <div class="creature-card">
+                    <img src="https://i.pinimg.com/1200x/ee/4e/0a/ee4e0a7b065810bf28e9a0890e0df386.jpg" alt="Giant squid" class="creature-image">
+                    <div class="creature-name">대왕오징어</div>
+                    <div class="creature-description">15m에 달하는 전설의 존재</div>
+                </div>
+                <div class="creature-card">
+                    <img src="https://i.pinimg.com/736x/b6/93/4a/b6934a1a35ce9e40773f986cdcaf5d82.jpg" alt="Black dragonfish" class="creature-image">
+                    <div class="creature-name">블랙 드래곤피쉬</div>
+                    <div class="creature-description">빛을 흡수하는 검은 비늘</div>
+                </div>
+                <div class="creature-card">
+                    <img src="https://images.pexels.com/photos/27396923/pexels-photo-27396923.jpeg" alt="Deep sea jellyfish" class="creature-image">
+                    <div class="creature-name">심해 해파리</div>
+                    <div class="creature-description">유령처럼 빛나는 몸으로 어둠 속을 떠다닌다</div>
+                </div>
+                <div class="creature-card">
+                    <img src="https://i.pinimg.com/1200x/56/b7/5b/56b75b8a181d1ef8c80a21bc506b2aba.jpg" alt="Unknown deep sea creature" class="creature-image">
+                    <div class="creature-name">걸퍼 일</div>
+                    <div class="creature-description">몸보다 큰 입을 가진 생물, 먹이를 통째로 삼킬 수 있는 팽창 가능한 위</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fear fade-in" id="fear">
+        <div class="section-content">
+            <div class="fear-content">
+                <h2 class="fear-title">왜 인간은 바다를 두려워하는가</h2>
+                <div class="fear-text">
+                    우리는 <span class="highlight">보이지 않는 것</span>을 두려워한다.<br><br>
+                    통제할 수 없고 예측할 수 없으며, 이해할 수 없기 때문이다.<br><br>
+                    <span class="highlight">공포는 '모르기 때문에' 생겨난다.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="essence fade-in" id="essence">
+        <div class="section-content">
+            <div class="essence-content">
+                <h2 class="essence-title">바다의 본질</h2>
+                <div class="essence-text">
+                    바다는 생명을 품고 있으면서 동시에 모든 것을 삼킨다.<br><br>
+                    그것은 시작이자 끝이고, 진실과 공포가 중첩된 공간이다.<br><br>
+                    심해는 인간 존재의 한계를 보여준다.
+                </div>
+                <div class="essence-final">
+                    깊이 들어갈수록, 우리는 작아진다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025/룽다장창</p>
+    </footer>
+
+</body>
+</html>
